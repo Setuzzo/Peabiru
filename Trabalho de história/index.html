@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho Peabiru - Maristela</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5e1c9;
+            padding: 20px;
+        }
+        h1 {
+            color: #8b4513;
+        }
+        .map-container {
+            width: 100%;
+            height: 600px;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+        a {
+            color: #FF2B7B
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>PEABIRU</h1>
+    <h2>O que é o Peabiru?</h2>
+    <p>O caminho do Peabiru é uma trilha feita pelos indígenas antes da chegada dos colonizadores.
+    O caminho, embora percorresse várias trilhas, tinha a sua principal a de São Vicente, em São Paulo, até
+    Cusco, no Peru.</p>
+ 
+    <h2>PROPOSTA</h2>
+    <p>A jornada é dividida em duas etapas. A primeira percorre o trecho de São Vicente a Corumbá, onde os viajantes vivenciam a riqueza cultural e natural do Brasil enquanto atravessam diferentes biomas e cidades históricas. Essa etapa inclui guias especializados, suporte logístico e paradas estratégicas para descanso e aprendizado.
+    Para os mais aventureiros, oferecemos uma segunda etapa, que leva os participantes de Corumbá até Cusco, no Peru. Essa fase exige um preparo maior e inclui a travessia dos Andes, conectando os turistas ao legado Inca e às paisagens deslumbrantes do altiplano.
+    Nosso serviço garante uma experiência segura e enriquecedora, contando com historiadores, guias locais e toda a estrutura necessária para que você percorra o Caminho do Peabiru como nunca antes!
+    Embarque nessa aventura e reviva a história!</p>
+    
+    <h1>Etapa 1: São Vicente → Corumbá</h1>
+    <div id="mapa1" class="map-container"></div>
+    <p>Aqui passaremos por algumas cidades, tais como: São Vicente, onde iniciamos; São Paulo; Sorocaba; Itapetininga;
+        Itapeva; Ponta Grossa; Curitiba; Guarapuava; Cascavel; Foz do Iguaçu; Guaíra; Campo Grande; Miranda; Aquiduanda;
+        Curumbá, onde finalizamos.</p>
+        <p>Preço: R$3500,00 por pessoa</p>
+    <h1>Etapa 2: Corumbá → Cusco</h1>
+    
+    <div id="mapa2" class="map-container"></div>
+    <p>Aqui iniciamos a segunda etapa, onde passaremos pelo restante do trajeto, saindo de Corumbá e seguindo o restante
+        do trajeto: Puerto Suárez; Santa Cruz de la Sierra; Cochabamba; Oruro; La paz; Copacabana; Puno; Juliaca; Cusco,
+        onde finalizamos o percurso.</p>
+        <p>Preço: R$5500,00 por pessoa</p>
+    <script>
+        function criarMapa(id, coordenadas, cidades) {
+            var mapa = L.map(id).setView(coordenadas, 5);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(mapa);
+            cidades.forEach(cidade => {
+                L.marker(cidade.coord).addTo(mapa)
+                    .bindPopup(`<b>${cidade.nome}</b><br>${cidade.descricao}`);
+            });
+        }
+
+        // Mapa 1 - São Vicente → Corumbá
+        criarMapa("mapa1", [-23.963, -46.392], [
+        { nome: "São Vicente - Início", coord: [-23.963, -46.392], descricao: "Ponto inicial do Caminho do Peabiru." },
+            { nome: "São Paulo", coord: [-23.5505, -46.6333], descricao: "Capital paulista, ponto de passagem importante." },
+            { nome: "Sorocaba", coord: [-23.5015, -47.4526], descricao: "Uma das cidades históricas do interior paulista." },
+            { nome: "Itapetininga", coord: [-23.5917, -48.0537], descricao: "Antiga rota indígena e tropeira." },
+            { nome: "Itapeva", coord: [-23.9822, -48.8759], descricao: "Local de antigas trilhas indígenas." },
+            { nome: "Ponta Grossa", coord: [-25.0916, -50.1669], descricao: "Importante cidade na passagem para o Paraná." },
+            { nome: "Curitiba", coord: [-25.4284, -49.2733], descricao: "Capital do Paraná e ponto histórico no trajeto." },
+            { nome: "Guarapuava", coord: [-25.3904, -51.4623], descricao: "Caminho tradicional dos tropeiros." },
+            { nome: "Cascavel", coord: [-24.9555, -53.4552], descricao: "Grande cidade do oeste do Paraná." },
+            { nome: "Foz do Iguaçu", coord: [-25.5163, -54.5854], descricao: "Conhecida pelas Cataratas do Iguaçu." },
+            { nome: "Guaíra", coord: [-24.0853, -54.2576], descricao: "Passagem pelo Rio Paraná." },
+            { nome: "Campo Grande", coord: [-20.4697, -54.6201], descricao: "Capital do Mato Grosso do Sul." },
+            { nome: "Miranda", coord: [-20.2351, -56.3744], descricao: "Conhecida por sua cultura pantaneira." },
+            { nome: "Aquidauana", coord: [-20.471, -55.7876], descricao: "Porta de entrada para o Pantanal." },
+            { nome: "Corumbá - Final", coord: [-19.0077, -57.6517], descricao: "Última cidade antes de entrar na rota boliviana para Cusco." }
+        ]);
+
+        // Mapa 2 - Corumbá → Cusco
+        criarMapa("mapa2", [-19.0077, -57.6517], [
+            { nome: "Corumbá - Início", coord: [-19.0077, -57.6517], descricao: "Ponto inicial na fronteira Brasil-Bolívia." },
+            { nome: "Puerto Suárez (Bolívia)", coord: [-18.9763, -57.8494], descricao: "Primeira cidade boliviana no trajeto." },
+            { nome: "Santa Cruz de la Sierra", coord: [-17.7833, -63.1821], descricao: "Maior cidade da Bolívia e centro cultural." },
+            { nome: "Cochabamba", coord: [-17.3936, -66.1573], descricao: "Cidade histórica com belas paisagens." },
+            { nome: "Oruro", coord: [-17.9710, -67.1130], descricao: "Conhecida pelo famoso Carnaval de Oruro." },
+            { nome: "La Paz", coord: [-16.5000, -68.1500], descricao: "Capital administrativa da Bolívia, localizada nos Andes." },
+            { nome: "Copacabana", coord: [-16.1667, -69.0833], descricao: "Beira do Lago Titicaca, com forte ligação Inca." },
+            { nome: "Puno (Peru)", coord: [-15.8402, -70.0219], descricao: "Cidade peruana às margens do Lago Titicaca." },
+            { nome: "Juliaca", coord: [-15.4997, -70.1333], descricao: "Ponto de passagem para Cusco." },
+            { nome: "Cusco - Final", coord: [-13.5319, -71.9674], descricao: "Antiga capital do Império Inca, destino final." }
+        ]);
+    </script>
+    <h2>EXPERIÊNCIA</h2>
+    <h3>TRILHAS</h3>
+    <p>Fornecemos algumas trilhas diferentes e com preços mais acessíveis, sendo separados das duas principais mostradas acima.</p>
+    
+    <ul><h4>Trilha das Origens (São Vicente - SP)</h4></ul>
+    <p>Percurso: 10km </p>
+        <p>Descrição: Caminhada pelos vestígios históricos do litoral paulista, com foco no ponto inicial do Caminho do Peabiru. Inclui visita a ruínas coloniais, trechos de mata atlântica e praias paradisíacas.</p>
+    <p>Preços: R$150,00 por pessoa</p>
+    <p>Inclui: Guia especializado, seguro aventura, lanche de trilha.</p>
+    
+    <ul><h4>Rota dos Campos Gerais (Paraná)</h4></ul>
+    <p>Percurso: 15km</p>
+    <p>Descrição: Exploração das formações rochosas e campos sulinos da região, com parada em cavernas e sítios arqueológicos. Uma experiência ideal para quem quer conhecer o lado mais místico do Peabiru.</p>
+    <p>Preços: R$250,00 por pessoa</p>
+    <p>Inclui: Guia, transporte local, seguro aventura.</p>
+    
+    <ul><h4>Caminho das Águas (Mato Grosso do Sul)</h4></ul>
+    <p>Percurso: 12km</p>
+    <p>Descrição: Trilha que acompanha rios e cachoeiras cristalinas, com possibilidade de banho em piscinas naturais. Excelente para um passeio mais relaxante e contemplativo.</p>
+    <p>Preços: R$230,00 por pessoa</p>
+    <p>Inclui: Guia, seguro aventura, lanche de trilha, acesso às cachoeiras.</p>
+
+    <ul><h4>Passagem dos Povos Originários (Paraguai - Brasil)</h4></ul>
+    <p>Percurso: 20km</p>
+    <p>Descrição: Um trajeto especial que passa por antigas rotas indígenas, com visitas a aldeias e imersão cultural. Ideal para quem deseja aprender sobre as tradições ancestrais que moldaram o Caminho do Peabiru.</p>
+    <p>Preços: R$550,00 por pessoa</p>
+    <p>Inclui: Guia, hospedagem simples, refeições típicas, visitas culturais, transporte local.</p>
+
+<h2>RESERVAS E CONTATO</h2>
+<p>Pronto para viver essa experiência única? Entre em contato para mais informações, tire suas dúvidas e reserve agora mesmo sua expedição!</p>
+<p>E-mail: contato@caminhodopeabiru.com</p>
+<p>Telefone/Celular: (00) 9999-9999</p>
+<a href="https://instagram.com">Instagram</a>
+</body>
+</html>
